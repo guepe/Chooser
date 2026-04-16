@@ -106,7 +106,12 @@ function finishSequence() {
   const ids = Array.from(touchMap.keys());
   const selectedId = ids[Math.floor(Math.random() * ids.length)];
   highlightChoice(selectedId);
+  choiceId = selectedId;
   isChoosing = false;
+
+  if (navigator.vibrate) {
+    navigator.vibrate([160, 40, 200]);
+  }
 }
 
 function startSequence() {
@@ -114,9 +119,11 @@ function startSequence() {
 
   isChoosing = true;
   let beepCount = 0;
+  const hesitateVibration = [60, 30, 60];
+
   playBeep();
   if (navigator.vibrate) {
-    navigator.vibrate([80, 40, 80]);
+    navigator.vibrate(hesitateVibration);
   }
 
   beepInterval = setInterval(() => {
@@ -127,6 +134,9 @@ function startSequence() {
       finishTimeout = setTimeout(finishSequence, 300);
     } else {
       playBeep();
+      if (navigator.vibrate) {
+        navigator.vibrate(hesitateVibration);
+      }
     }
   }, 700);
 }

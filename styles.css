@@ -75,13 +75,15 @@ body {
 }
 
 .touch-point.selected .halo {
-  box-shadow: 0 0 0 20px rgba(255, 255, 255, 0.7), 0 0 50px rgba(255, 255, 255, 0.45);
+  width: 180px;
+  height: 180px;
+  box-shadow: 0 0 0 26px rgba(255, 255, 255, 0.9), 0 0 100px rgba(255, 255, 255, 0.6);
   animation: none;
 }
 
 .touch-point.selected .core {
-  background: rgba(255, 255, 255, 0.32);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.38);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.18);
 }
 
 @keyframes haloPulse {
