@@ -7,7 +7,7 @@ let beepInterval = null;
 let finishTimeout = null;
 
 const MIN_TOUCHES = 2;
-const MAX_TOUCHES = 3;
+const MAX_TOUCHES = 6;
 
 touchLayer.className = 'touch-layer';
 touchLayer.style.pointerEvents = 'none';
