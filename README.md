@@ -1,21 +1,24 @@
 # Chooser App
 
-Mini application statique pour smartphone : pose 1 à 3 doigts sur l'écran, une résonance se déclenche, puis le doigt choisi apparaît.
+A simple static mobile web app: place 1 to 3 fingers on the screen, a short resonance plays, and one finger is selected.
 
-## Contenu
-- `index.html` : application web mobile-friendly
-- `styles.css` : style plein écran
-- `script.js` : détection tactile et logique de choix
-- `.gitignore` : fichiers à ignorer
+## Contents
+
+- `index.html` : mobile-friendly web app entry point
+- `styles.css` : full-screen styling
+- `script.js` : touch detection and selection logic
+- `.gitignore` : files excluded from Git
 
 ## Installation
-Aucune installation Node nécessaire pour cette version.
 
-1. Copie les fichiers `index.html`, `styles.css` et `script.js` sur ton serveur Apache.
-2. Ouvre la page depuis un smartphone ou un navigateur.
+No Node installation is required for this version.
 
-## Utilisation sur Apache
-1. Place les fichiers dans le répertoire web.
-2. Accède à l'URL correspondante.
+1. Copy `index.html`, `styles.css`, `script.js`, and `images.jpg` to your web server.
+2. Open the page from a smartphone or browser.
 
-L'application fonctionne directement en statique, sans build ni backend.
+## Apache Deployment
+
+1. Place the files in your web root folder.
+2. Access the page via the corresponding URL.
+
+The app runs entirely as static files with no build step or backend.
