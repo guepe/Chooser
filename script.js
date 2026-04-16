@@ -6,7 +6,7 @@ let choiceId = null;
 let beepInterval = null;
 let finishTimeout = null;
 
-const MIN_TOUCHES = 2;
+const MIN_TOUCHES = 1;
 const MAX_TOUCHES = 6;
 
 touchLayer.className = 'touch-layer';
@@ -73,6 +73,12 @@ function playBeep() {
   oscillator.onended = () => audioContext.close();
 }
 
+function triggerVibration(pattern) {
+  if (!navigator.vibrate) return;
+  navigator.vibrate(0);
+  setTimeout(() => navigator.vibrate(pattern), 20);
+}
+
 function reset() {
   clearInterval(beepInterval);
   clearTimeout(finishTimeout);
@@ -109,9 +115,7 @@ function finishSequence() {
   choiceId = selectedId;
   isChoosing = false;
 
-  if (navigator.vibrate) {
-    navigator.vibrate([160, 40, 200]);
-  }
+  triggerVibration([160, 40, 200]);
 }
 
 function startSequence() {
@@ -122,21 +126,17 @@ function startSequence() {
   const hesitateVibration = [60, 30, 60];
 
   playBeep();
-  if (navigator.vibrate) {
-    navigator.vibrate(hesitateVibration);
-  }
+  triggerVibration(hesitateVibration);
 
   beepInterval = setInterval(() => {
     beepCount += 1;
     if (beepCount >= 2) {
       clearInterval(beepInterval);
       beepInterval = null;
-      finishTimeout = setTimeout(finishSequence, 300);
+      finishTimeout = setTimeout(finishSequence, 600);
     } else {
       playBeep();
-      if (navigator.vibrate) {
-        navigator.vibrate(hesitateVibration);
-      }
+      triggerVibration(hesitateVibration);
     }
   }, 700);
 }
@@ -148,7 +148,18 @@ function handleTouches(event) {
   const activeIds = new Set(touches.map((touch) => touch.identifier));
 
   if (choiceId !== null) {
-    reset();
+    if (touches.length === 0) {
+      reset();
+    } else if (touchMap.has(choiceId)) {
+      const selectedTouch = touches.find((touch) => touch.identifier === choiceId);
+      if (selectedTouch) {
+        const rect = screen.getBoundingClientRect();
+        const x = selectedTouch.clientX - rect.left;
+        const y = selectedTouch.clientY - rect.top;
+        updateTouchPoint(choiceId, x, y);
+      }
+    }
+    return;
   }
 
   touches.forEach((touch) => {
